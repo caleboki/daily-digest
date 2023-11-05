@@ -1,10 +1,14 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import PreferenceModal from './PreferenceModal.vue';
+
 import { Head } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 const preferences = ref([]);
+const showPreferenceModal = ref(false);
+
 
 const fetchPreferences = async () => {
     try {
@@ -34,12 +38,16 @@ onMounted(fetchPreferences);
                     <ul class="list-disc pl-5 mb-4">
                         <li v-for="preference in preferences" :key="preference" class="text-gray-600 mb-2">{{ preference }}</li>
                     </ul>
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    <!-- <button class="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        Modify Preferences
+                    </button> -->
+                    <button @click="showPreferenceModal = true" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                         Modify Preferences
                     </button>
+                    <PreferenceModal v-if="showPreferenceModal" @close="showPreferenceModal = false" />
+
                 </div>
             </div>
         </div>
     </AuthenticatedLayout>
 </template>
-

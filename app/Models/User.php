@@ -43,4 +43,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function newsCategory () {
+        return $this->belongsToMany(NewsCategory::class, 'user_news_category');
+    }
 }

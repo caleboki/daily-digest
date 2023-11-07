@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use App\Models\NewsCategory;
 
 class NewsCategoryController extends Controller
 {
@@ -12,7 +14,11 @@ class NewsCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = NewsCategory::all();
+
+        return Inertia::render('NewsCategories/Index', [
+            'categories' => $categories
+        ]);
     }
 
     /**
